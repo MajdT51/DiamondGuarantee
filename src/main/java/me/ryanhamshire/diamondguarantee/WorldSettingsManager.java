@@ -1,8 +1,8 @@
-package me.ryanhamshire.DiamondGuarantee;
-
-import java.util.concurrent.ConcurrentHashMap;
+package me.ryanhamshire.diamondguarantee;
 
 import org.bukkit.World;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 class WorldSettingsManager
 {

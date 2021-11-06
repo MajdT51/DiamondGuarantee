@@ -1,12 +1,12 @@
 //Copyright 2015 Ryan Hamshire
-package me.ryanhamshire.DiamondGuarantee;
+package me.ryanhamshire.diamondguarantee;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class DataStore
 {

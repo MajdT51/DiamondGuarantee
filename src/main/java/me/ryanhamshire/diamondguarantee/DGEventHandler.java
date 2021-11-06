@@ -1,16 +1,12 @@
 //Copyright 2015 Ryan Hamshire
 
-package me.ryanhamshire.DiamondGuarantee;
+package me.ryanhamshire.diamondguarantee;
 
-import java.util.List;
-
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +20,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+
+import java.util.List;
 
 public class DGEventHandler implements Listener
 {
@@ -180,23 +178,6 @@ public class DGEventHandler implements Listener
                 event.getDrops().add(new ItemStack(Material.GLOWSTONE_DUST, count));
             }
         }
-        
-        else if(type == EntityType.PIG_ZOMBIE)
-        {
-            Entity entity = event.getEntity();
-            World world = entity.getWorld();
-            if(world.getEnvironment() != Environment.NETHER) return;
-            
-            if(Math.random() * 100 < DiamondGuarantee.instance.worldSettingsManager.Get(entity.getWorld()).wartChance)
-            {
-                Location location = entity.getLocation();
-                if(location.getBlock().getRelative(BlockFace.DOWN).getType() == Material.NETHER_BRICK)
-                {
-                    event.getDrops().add(new ItemStack(Material.NETHER_STALK));
-                }
-            }
-        }
-        
         else if(type == EntityType.ENDER_DRAGON)
         {
             World world = event.getEntity().getWorld();
@@ -208,11 +189,6 @@ public class DGEventHandler implements Listener
             if(DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsElytras)
             {
                 event.getDrops().add(new ItemStack(Material.ELYTRA));
-            }
-            
-            if(DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsHeads)
-            {
-                event.getDrops().add(new ItemStack(Material.SKULL_ITEM, 1, (byte)5));
             }
         }
     }

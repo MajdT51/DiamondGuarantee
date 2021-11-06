@@ -1,10 +1,6 @@
 //Copyright 2015 Ryan Hamshire
 
-package me.ryanhamshire.DiamondGuarantee;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.logging.Logger;
+package me.ryanhamshire.diamondguarantee;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -16,6 +12,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.logging.Logger;
 
 public class DiamondGuarantee extends JavaPlugin
 {
@@ -132,17 +133,15 @@ public class DiamondGuarantee extends JavaPlugin
         
         WorldSettings defaultSettings = new WorldSettings();
         defaultSettings.diamondZoneMinY = config.getInt("Diamond Zone.Minimum Y Value", 0);
-        defaultSettings.diamondZoneMaxY = config.getInt("Diamond Zone.Maximum Y Value", 16);
+        defaultSettings.diamondZoneMaxY = config.getInt("Diamond Zone.Maximum Y Value", 20);
         defaultSettings.generateDiamonds = config.getBoolean("Diamond Generation.Enabled", true);
         defaultSettings.diamondValue = config.getLong("Diamond Generation.Diamond Value", 1000);
         defaultSettings.stoneValueOutsideZone = config.getLong("Diamond Generation.Stone Value.Outside Diamond Zone", 1);
         defaultSettings.stoneValueInsideZone = config.getLong("Diamond Generation.Stone Value.Inside Diamond Zone", 3);
         defaultSettings.generateDiamondsLog = config.getBoolean("Diamond Generation.Log Details", false);
-        defaultSettings.ghastDustCount = config.getInt("Ghasts Drop This Many Glowstone Dust", 20);
-        defaultSettings.wartChance = config.getInt("Percent Chance Fortress Pig Zombies Will Drop Nether Wart", 20);
+        defaultSettings.ghastDustCount = config.getInt("Ghasts Drop This Many Glowstone Dust", 4);
         defaultSettings.dragonDropsEggs = config.getBoolean("Ender Dragon.Drops Dragon Eggs", true);
         defaultSettings.dragonDropsElytras = config.getBoolean("Ender Dragon.Drops Elytras", true);
-        defaultSettings.dragonDropsHeads = config.getBoolean("Ender Dragon.Drops Dragon Heads", true);
         
         this.worldSettingsManager = new WorldSettingsManager(defaultSettings);
         
@@ -157,10 +156,8 @@ public class DiamondGuarantee extends JavaPlugin
             settings.stoneValueInsideZone = config.getLong(world.getName() + ".Diamond Generation.Stone Value.Inside Diamond Zone", defaultSettings.stoneValueInsideZone);
             settings.generateDiamondsLog = config.getBoolean(world.getName() + ".Diamond Generation.Log Details", defaultSettings.generateDiamondsLog);
             settings.ghastDustCount = config.getInt(world.getName() + ".Ghasts Drop This Many Glowstone Dust", defaultSettings.ghastDustCount);
-            settings.wartChance = config.getInt(world.getName() + ".Percent Chance Fortress Pig Zombies Will Drop Nether Wart", defaultSettings.wartChance);
             settings.dragonDropsEggs = config.getBoolean(world.getName() + ".Ender Dragon.Drops Dragon Eggs", defaultSettings.dragonDropsEggs);
             settings.dragonDropsElytras = config.getBoolean(world.getName() + ".Ender Dragon.Drops Elytras", defaultSettings.dragonDropsElytras);
-            settings.dragonDropsHeads = config.getBoolean(world.getName() + ".Ender Dragon.Drops Dragon Heads", defaultSettings.dragonDropsHeads);
             
             if(world.getEnvironment() == Environment.NORMAL)
             {
@@ -175,13 +172,11 @@ public class DiamondGuarantee extends JavaPlugin
             else if(world.getEnvironment() == Environment.NETHER)
             {
                 outConfig.set(world.getName() + ".Ghasts Drop This Many Glowstone Dust", settings.ghastDustCount);
-                outConfig.set(world.getName() + ".Percent Chance Fortress Pig Zombies Will Drop Nether Wart", settings.wartChance);
             }
             else if(world.getEnvironment() == Environment.THE_END)
             {
                 outConfig.set(world.getName() + ".Ender Dragon.Drops Dragon Eggs", settings.dragonDropsEggs);
                 outConfig.set(world.getName() + ".Ender Dragon.Drops Elytras", settings.dragonDropsElytras);
-                outConfig.set(world.getName() + ".Ender Dragon.Drops Dragon Heads", settings.dragonDropsHeads);
             }
             
             this.worldSettingsManager.Set(world.getName(), settings);
@@ -196,10 +191,8 @@ public class DiamondGuarantee extends JavaPlugin
         outConfig.set("Diamond Generation.Stone Value.Inside Diamond Zone", defaultSettings.stoneValueInsideZone);
         outConfig.set("Diamond Generation.Log Details", defaultSettings.generateDiamondsLog);
         outConfig.set("Ghasts Drop This Many Glowstone Dust", defaultSettings.ghastDustCount);
-        outConfig.set("Percent Chance Fortress Pig Zombies Will Drop Nether Wart", defaultSettings.wartChance);
         outConfig.set("Ender Dragon.Drops Dragon Eggs", defaultSettings.dragonDropsEggs);
         outConfig.set("Ender Dragon.Drops Elytras", defaultSettings.dragonDropsElytras);
-        outConfig.set("Ender Dragon.Drops Dragon Heads", defaultSettings.dragonDropsHeads);
         
         try
         {

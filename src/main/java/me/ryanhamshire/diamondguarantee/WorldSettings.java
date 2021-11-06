@@ -1,4 +1,4 @@
-package me.ryanhamshire.DiamondGuarantee;
+package me.ryanhamshire.diamondguarantee;
 
 class WorldSettings
 {
@@ -10,10 +10,8 @@ class WorldSettings
     int diamondZoneMaxY;
     int diamondZoneMinY;
     int ghastDustCount;
-    int wartChance;
     boolean dragonDropsEggs;
     boolean dragonDropsElytras;
-    boolean dragonDropsHeads;
     
     WorldSettings(){ }
     
@@ -27,9 +25,7 @@ class WorldSettings
         this.diamondZoneMaxY = other.diamondZoneMaxY;
         this.diamondZoneMinY = other.diamondZoneMinY;
         this.ghastDustCount = other.ghastDustCount;
-        this.wartChance = other.wartChance;
         this.dragonDropsEggs = other.dragonDropsEggs;
         this.dragonDropsElytras = other.dragonDropsElytras;
-        this.dragonDropsHeads = other.dragonDropsHeads;
     }
 }
