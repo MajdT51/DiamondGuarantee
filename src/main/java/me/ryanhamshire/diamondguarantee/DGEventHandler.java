@@ -26,8 +26,7 @@ import java.util.List;
 public class DGEventHandler implements Listener
 {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPlayerInteract(PlayerInteractEvent event)
-    {
+    public void onPlayerInteract(PlayerInteractEvent event) {
         if(event.getAction() != Action.LEFT_CLICK_BLOCK) return;
         
         Player player = event.getPlayer();
@@ -39,8 +38,7 @@ public class DGEventHandler implements Listener
     }
     
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onBlockBreak(BlockBreakEvent event)
-    {
+    public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if(player == null) return;
         
@@ -78,8 +76,8 @@ public class DGEventHandler implements Listener
             Block newBlock = block.getRelative(direction);
             Material newBlockType = newBlock.getType();
             
-            //only stone stone will convert to diamond
-            if(newBlockType != Material.STONE) return;
+            //only stone and deepslate will convert to diamond
+            if(newBlockType != Material.STONE && newBlockType != Material.DEEPSLATE) return;
             
             //confirm block is entirely enclosed
             if(newBlock.getLightLevel() > 0) return;
@@ -110,12 +108,12 @@ public class DGEventHandler implements Listener
     private long getBlockValue(Block block)
     {
         Material type = block.getType();
-        if(type != Material.STONE && type != Material.DIAMOND_ORE) return 0;
+        if(type != Material.STONE && type != Material.DEEPSLATE && type != Material.DIAMOND_ORE) return 0;
         
         if(block.hasMetadata("DG_noValue")) return 0;
         World world = block.getWorld();
         
-        if(type == Material.STONE)
+        if(type == Material.STONE || type == Material.DEEPSLATE)
         {
             //if in diamond zone
             if(block.getY() <= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMaxY && block.getY() >= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMinY)
