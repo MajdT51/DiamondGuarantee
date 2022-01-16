@@ -1,6 +1,6 @@
 //Copyright 2015 Ryan Hamshire
 
-package me.ryanhamshire.DiamondGuarantee;
+package me.ryanhamshire.diamondguarantee;
 
 import org.bukkit.ChatColor;
 
