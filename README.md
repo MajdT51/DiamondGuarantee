@@ -3,9 +3,7 @@ from BigScary: "I created this Minecraft server plugin using the Bukkit API to f
 
 I stopped working on this project after Minecraft 1.10.  Anyone may use my source code to continue the project, but see the LICENSE file for restrictions."
 
-## update 
-06.11.2021 Updated only for testing and learning purposes! no warranty!
-Can be tested on CaveRaiders server: caveraiders.minecraft.best
+## Config
 
     diamondZoneMinY: "Diamond Zone.Minimum Y Value" default -64
     diamondZoneMaxY: "Diamond Zone.Maximum Y Value" default 20
@@ -19,6 +17,13 @@ Can be tested on CaveRaiders server: caveraiders.minecraft.best
     ghastDustCount: "Ghasts Drop This Many Glowstone Dust" default 4
     dragonDropsEggs: "Ender Dragon.Drops Dragon Eggs" default true
     dragonDropsElytras: "Ender Dragon.Drops Elytras" default true
+
+## update
+The plugin can be tested on CaveRaiders server: caveraiders.minecraft.best
+
+06.11.2021
+* Version 0.1.0
+* Updated only for testing and learning purposes! no warranty!
 
 01.01.2022
 * Version 0.1.1
