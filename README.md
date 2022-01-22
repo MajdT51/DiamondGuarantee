@@ -7,16 +7,23 @@ I stopped working on this project after Minecraft 1.10.  Anyone may use my sourc
 06.11.2021 Updated only for testing and learning purposes! no warranty!
 Can be tested on CaveRaiders server: caveraiders.minecraft.best
 
-    diamondZoneMinY: "Diamond Zone.Minimum Y Value" default 0 // can be set to -60 in 1.18.1
+    diamondZoneMinY: "Diamond Zone.Minimum Y Value" default -64
     diamondZoneMaxY: "Diamond Zone.Maximum Y Value" default 20
     generateDiamonds: "Diamond Generation.Enabled" default true
     diamondValue: "Diamond Generation.Diamond Value" default 1000;
-    stoneValueOutsideZone: Diamond Generation.Stone Value.Outside Diamond Zone" default 1 
+    stoneValueOutsideZone: "Diamond Generation.Stone Value.Outside Diamond Zone" default 1 
     stoneValueInsideZone: "Diamond Generation.Stone Value.Inside Diamond Zone" default 3
+    deepslateValueOutsideZone: "Diamond Generation.Deepslate Value.Outside Diamond Zone" default 1 
+    deepslateValueInsideZone: "Diamond Generation.Deepslate Value.Inside Diamond Zone" default 4
     generateDiamondsLog: "Diamond Generation.Log Details" default false
     ghastDustCount: "Ghasts Drop This Many Glowstone Dust" default 4
     dragonDropsEggs: "Ender Dragon.Drops Dragon Eggs" default true
     dragonDropsElytras: "Ender Dragon.Drops Elytras" default true
 
 01.01.2022
-Add deepslate: stone and deepslate are counted the same way now
+* Version 0.1.1
+* Add deepslate: stone and deepslate are counted the same way now (has the same value)
+
+22.01.2022
+* Version 0.1.2
+* Add 2 new configs `deepslateValueOutsideZone` and `deepslateValueInsideZone` for deepslate value inside and outside confifured diamond Zone
