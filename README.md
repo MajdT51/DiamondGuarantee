@@ -33,3 +33,4 @@ The plugin can be tested on CaveRaiders server: caveraiders.minecraft.best
 22.01.2022
 * Version 0.1.2
 * Add 2 new configs `deepslateValueOutsideZone` and `deepslateValueInsideZone` for deepslate value inside and outside confifured diamond Zone
+* Add Ender Dragon Drops Heads back to the plugin
