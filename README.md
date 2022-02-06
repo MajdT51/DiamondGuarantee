@@ -8,15 +8,16 @@ I stopped working on this project after Minecraft 1.10.  Anyone may use my sourc
     diamondZoneMinY: "Diamond Zone.Minimum Y Value" default -64
     diamondZoneMaxY: "Diamond Zone.Maximum Y Value" default 20
     generateDiamonds: "Diamond Generation.Enabled" default true
-    diamondValue: "Diamond Generation.Diamond Value" default 1000;
-    stoneValueOutsideZone: "Diamond Generation.Stone Value.Outside Diamond Zone" default 1 
-    stoneValueInsideZone: "Diamond Generation.Stone Value.Inside Diamond Zone" default 3
-    deepslateValueOutsideZone: "Diamond Generation.Deepslate Value.Outside Diamond Zone" default 1 
-    deepslateValueInsideZone: "Diamond Generation.Deepslate Value.Inside Diamond Zone" default 4
-    generateDiamondsLog: "Diamond Generation.Log Details" default false
+    diamondValue: "Diamond Generation. Diamond Value" default 1000;
+    stoneValueOutsideZone: "Diamond Generation. Stone Value.Outside Diamond Zone" default 1 
+    stoneValueInsideZone: "Diamond Generation. Stone Value.Inside Diamond Zone" default 3
+    deepslateValueOutsideZone: "Diamond Generation. Deepslate Value. Outside Diamond Zone" default 1 
+    deepslateValueInsideZone: "Diamond Generation. Deepslate Value. Inside Diamond Zone" default 4
+    generateDiamondsLog: "Diamond Generation. Log Details" default false
     ghastDustCount: "Ghasts Drop This Many Glowstone Dust" default 4
-    dragonDropsEggs: "Ender Dragon.Drops Dragon Eggs" default true
-    dragonDropsElytras: "Ender Dragon.Drops Elytras" default true
+    dragonDropsEggs: "Ender Dragon. Drops Dragon Eggs" default true
+    dragonDropsElytras: "Ender Dragon. Drops Elytras" default true
+    dragonDropsHeads: "Ender Dragon. Drops Heads" default true
 
 ## update
 The plugin can be tested on CaveRaiders server: caveraiders.minecraft.best

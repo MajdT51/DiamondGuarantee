@@ -13,6 +13,7 @@ class WorldSettings {
     int ghastDustCount;
     boolean dragonDropsEggs;
     boolean dragonDropsElytras;
+    boolean dragonDropsHeads;
     
     WorldSettings() { }
     
@@ -29,5 +30,6 @@ class WorldSettings {
         this.ghastDustCount = other.ghastDustCount;
         this.dragonDropsEggs = other.dragonDropsEggs;
         this.dragonDropsElytras = other.dragonDropsElytras;
+        this.dragonDropsHeads = other.dragonDropsHeads;
     }
 }

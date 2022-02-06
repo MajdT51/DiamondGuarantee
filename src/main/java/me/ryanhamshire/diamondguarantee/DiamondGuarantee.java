@@ -125,6 +125,7 @@ public class DiamondGuarantee extends JavaPlugin {
         defaultSettings.ghastDustCount = config.getInt("Ghasts Drop This Many Glowstone Dust", 4);
         defaultSettings.dragonDropsEggs = config.getBoolean("Ender Dragon.Drops Dragon Eggs", true);
         defaultSettings.dragonDropsElytras = config.getBoolean("Ender Dragon.Drops Elytras", true);
+        defaultSettings.dragonDropsHeads = config.getBoolean("Ender Dragon.Drops Head", true);
         
         this.worldSettingsManager = new WorldSettingsManager(defaultSettings);
         
@@ -154,6 +155,8 @@ public class DiamondGuarantee extends JavaPlugin {
                     config.getBoolean(world.getName() + ".Ender Dragon.Drops Dragon Eggs", defaultSettings.dragonDropsEggs);
             settings.dragonDropsElytras =
                     config.getBoolean(world.getName() + ".Ender Dragon.Drops Elytras", defaultSettings.dragonDropsElytras);
+            settings.dragonDropsHeads =
+                    config.getBoolean(world.getName() + ".Ender Dragon. Drops Heads", defaultSettings.dragonDropsHeads);
             
             if (world.getEnvironment() == Environment.NORMAL) {
                 outConfig.set(world.getName() + ".Diamond Zone.Minimum Y Value", settings.diamondZoneMinY);
@@ -170,6 +173,7 @@ public class DiamondGuarantee extends JavaPlugin {
             } else if (world.getEnvironment() == Environment.THE_END) {
                 outConfig.set(world.getName() + ".Ender Dragon.Drops Dragon Eggs", settings.dragonDropsEggs);
                 outConfig.set(world.getName() + ".Ender Dragon.Drops Elytras", settings.dragonDropsElytras);
+                outConfig.set(world.getName() + ".Ender Dragon.Drops Heads", settings.dragonDropsHeads);
             }
             
             this.worldSettingsManager.Set(world.getName(), settings);
@@ -188,6 +192,7 @@ public class DiamondGuarantee extends JavaPlugin {
         outConfig.set("Ghasts Drop This Many Glowstone Dust", defaultSettings.ghastDustCount);
         outConfig.set("Ender Dragon.Drops Dragon Eggs", defaultSettings.dragonDropsEggs);
         outConfig.set("Ender Dragon.Drops Elytras", defaultSettings.dragonDropsElytras);
+        outConfig.set("Ender Dragon.Drops Heads", defaultSettings.dragonDropsHeads);
         
         try {
             outConfig.save(configFile);

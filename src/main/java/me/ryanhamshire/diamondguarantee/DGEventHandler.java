@@ -175,6 +175,9 @@ public class DGEventHandler implements Listener
             if (DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsElytras) {
                 event.getDrops().add(new ItemStack(Material.ELYTRA));
             }
+            if (DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsHeads) {
+                event.getDrops().add(new ItemStack(Material.DRAGON_HEAD));
+            }
         }
     }
 }
