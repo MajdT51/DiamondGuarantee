@@ -3,7 +3,7 @@ main: me.ryanhamshire.diamondguarantee.DiamondGuarantee
 softdepend: [Multiverse-Core, My Worlds, MystCraft, Transporter, TheUnderground, RoyalCommands]
 loadbefore: [TheUnderground]
 api-version: 1.18
-version: 0.2.0
+version: 0.2.1
 commands:
   dgreload:
     description: Reloads the configuration settings..

@@ -4,9 +4,10 @@ From **BigScary**: "I created this Minecraft server plugin using the Bukkit API 
 
 BigScary stopped working on this project after Minecraft 1.10. Anyone may use my source code to continue the project, but see the LICENSE file for restrictions."
 
-The updated version of the plugin works for `1.18.x`, `1.19.x`. You can try the plugin on the **CaveRaiders** server. IP: `caveraiders.minecraft.best`
+The updated version of the plugin works for `1.18.x`, `1.19.x`, `1.20.x`. You can try the plugin on the **CaveRaiders** server. IP: `caveraiders.minecraft.best`
 
 ## Description
+
 Guarantee players who put in the work will find diamonds! Even when faced with hoarders, cheaters, and just plain bad luck.
 
 Despite the mining limiters and anti-x-ray solutions you've probably added to your server, areas can still run low on diamond ore and other desirable rares due to many factors - hoarding, greed, overpopulation, cheating, and randomness in Vanilla world gen. This problem is worst when new players get frustrated and quit your server before they've given it a fair assessment.
@@ -15,7 +16,7 @@ DiamondGuarantee solves the diamond starvation problem by detecting when a miner
 
 ## Installation
 
-Download DiamondGuarantee.jar into your server's plugins folder, then /reload or reboot your server.
+Download DiamondGuarantee.jar into your server's plugins folder, then /reload or reboot your server. Java 17 or higher is required.
 
 ### How Diamond-Related Settings Work
 
@@ -39,6 +40,7 @@ All config settings are per-world, so you can tweak settings for specific worlds
     deepslateValueInsideZone: "Diamond Generation. Deepslate Value. Inside Diamond Zone" default 4
     generateDiamondsLog: "Diamond Generation. Log Details" default false
     ghastDustCount: "Ghasts Drop This Many Glowstone Dust" default 4
+    shulkerShellsCount: "Shulkers Drop This Many Extra Shulker Shells" default 1
     dragonDropsEggs: "Ender Dragon. Drops Dragon Eggs" default true
     dragonDropsElytras: "Ender Dragon. Drops Elytras" default true
     dragonDropsHeads: "Ender Dragon. Drops Heads" default true
@@ -65,20 +67,26 @@ All your players will benefit from the plugin. These permission nodes control wh
 
 ## Updates
 
-06.11.2021
-* Version 0.1.0
-* Updated only for testing and learning purposes! no warranty!
+### Version 0.2.1 - 25.06.2024
 
-01.01.2022
-* Version 0.1.1
-* Add deepslate: stone and deepslate are counted the same way now (has the same value)
+* Add extra Shulker's Shells drop from Shulkers
+* Update java version to java 17
+* Code refactoring
 
-22.01.2022
-* Version 0.1.2
+### Version 0.2.0 - 12.04.2022
+
+* Update to Minecraft 1.18.2
+* Update java version to java 11
+
+### Version 0.1.2 - 22.01.2022
+
 * Add 2 new configs `deepslateValueOutsideZone` and `deepslateValueInsideZone` for deepslate value inside and outside confifured diamond Zone
 * Add Ender Dragon Drops Heads back to the plugin
 
-12.04.2022
-* Version 0.2.0
-* Update to Minecraft 1.18.2
-* Update java version to java 11
+### Version 0.1.1 - 01.01.2022
+
+* Add deepslate: stone and deepslate are counted the same way now (has the same value
+
+### Version 0.1.0 - 06.11.2021
+
+* Updated only for testing and learning purposes! no warranty!

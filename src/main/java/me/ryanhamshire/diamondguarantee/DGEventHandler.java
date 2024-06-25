@@ -23,133 +23,165 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.List;
 
-public class DGEventHandler implements Listener
-{
+public class DGEventHandler implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getAction() != Action.LEFT_CLICK_BLOCK) return;
-        
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK)
+            return;
+
         Player player = event.getPlayer();
-        if (!DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).generateDiamonds) return;
+        if (!DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).generateDiamonds)
+            return;
         BlockFace face = event.getBlockFace();
-        PlayerData data = PlayerData.FromPlayer(player);
-        
+        PlayerData data = PlayerData.fromPlayer(player);
+
         data.lastClickedFace = face;
     }
-    
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (player == null) return;
-        
-        if (!DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).generateDiamonds) return;
-        
+        if (player == null)
+            return;
+
+        if (!DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).generateDiamonds)
+            return;
+
         Block block = event.getBlock();
-        
-        if (block.getWorld().getEnvironment() != Environment.NORMAL) return;
-        
+
+        if (block.getWorld().getEnvironment() != Environment.NORMAL)
+            return;
+
         long value = this.getBlockValue(block);
-        if (value == 0) return;
-        
-        PlayerData data = PlayerData.FromPlayer(player);
-        if (data.lastClickedFace == null) return;
+        if (value == 0)
+            return;
+
+        PlayerData data = PlayerData.fromPlayer(player);
+        if (data.lastClickedFace == null)
+            return;
         long newScore = data.adjustDiamondScore(value);
-        
-        if (newScore >= DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).diamondValue) {
-            //verify in diamond zone
+
+        if (newScore >= DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).diamondValue) {
+            // verify in diamond zone
             int y = block.getY();
-            if (y >DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).diamondZoneMaxY
-                    || y < DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).diamondZoneMinY) return;
-            
-            //find block on other side of broken block
-            BlockFace direction; 
-            switch(data.lastClickedFace) {
-                case NORTH:direction = BlockFace.SOUTH; break;
-                case SOUTH:direction = BlockFace.NORTH; break;
-                case EAST:direction = BlockFace.WEST; break;
-                case WEST:direction = BlockFace.EAST; break;
-                case UP:direction = BlockFace.DOWN; break;
-                default:direction = BlockFace.UP; break;
+            if (y > DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).diamondZoneMaxY
+                    || y < DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).diamondZoneMinY)
+                return;
+
+            // find block on other side of broken block
+            BlockFace direction;
+            switch (data.lastClickedFace) {
+                case NORTH:
+                    direction = BlockFace.SOUTH;
+                    break;
+                case SOUTH:
+                    direction = BlockFace.NORTH;
+                    break;
+                case EAST:
+                    direction = BlockFace.WEST;
+                    break;
+                case WEST:
+                    direction = BlockFace.EAST;
+                    break;
+                case UP:
+                    direction = BlockFace.DOWN;
+                    break;
+                default:
+                    direction = BlockFace.UP;
+                    break;
             }
-            
+
             Block newBlock = block.getRelative(direction);
             Material newBlockType = newBlock.getType();
-            
-            //only stone and deepslate will convert to diamond
-            if (newBlockType != Material.STONE && newBlockType != Material.DEEPSLATE) return;
-            
-            //confirm block is entirely enclosed
-            if (newBlock.getLightLevel() > 0) return;
-            BlockFace [] adjacentFaces = new BlockFace [] {BlockFace.UP, BlockFace.DOWN, BlockFace.EAST,
-                    BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH};
-            for(BlockFace face : adjacentFaces) {
+
+            // only stone and deepslate will convert to diamond
+            if (newBlockType != Material.STONE && newBlockType != Material.DEEPSLATE)
+                return;
+
+            // confirm block is entirely enclosed
+            if (newBlock.getLightLevel() > 0)
+                return;
+
+            BlockFace[] adjacentFaces = new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.EAST,
+                    BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH };
+
+            for (BlockFace face : adjacentFaces) {
                 Block nearbyBlock = newBlock.getRelative(face);
-                if (nearbyBlock.getType().isTransparent()) return;
+                if (nearbyBlock.getType().isTransparent())
+                    return;
             }
-            
-            //convert to diamond ore
+
+            // convert to diamond ore
             newBlock.setType(Material.DIAMOND_ORE);
-            
-            if (DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).generateDiamondsLog) {
-                String logEntry = "Generated diamond ore for " + player.getName() + " @ " + block.getWorld().getName() + "(" + block.getX() + ", " + block.getY() + ", " + block.getZ() + ").";
-                DiamondGuarantee.AddLogEntry(logEntry);
+
+            if (DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).generateDiamondsLog) {
+                String logEntry = "Generated diamond ore for " + player.getName() + " @ " + block.getWorld().getName()
+                        + "(" + block.getX() + ", " + block.getY() + ", " + block.getZ() + ").";
+                DiamondGuarantee.addLogEntry(logEntry);
             }
-            
-            //mark as generated ore which won't cost to break
+
+            // mark as generated ore which won't cost to break
             newBlock.setMetadata("DG_noValue", new FixedMetadataValue(DiamondGuarantee.instance, true));
-            
-            //deduct diamond points for generating a new ore as if it had been broken already
-            data.adjustDiamondScore(-DiamondGuarantee.instance.worldSettingsManager.Get(player.getWorld()).diamondValue);
+
+            // deduct diamond points for generating a new ore as if it had been broken
+            // already
+            data.adjustDiamondScore(
+                    -DiamondGuarantee.instance.worldSettingsManager.get(player.getWorld()).diamondValue);
         }
     }
-    
+
     private long getBlockValue(Block block) {
         Material type = block.getType();
-        if (type != Material.STONE && type != Material.DEEPSLATE && type != Material.DIAMOND_ORE) return 0;
-        
-        if (block.hasMetadata("DG_noValue")) return 0;
+        if (type != Material.STONE && type != Material.DEEPSLATE && type != Material.DIAMOND_ORE)
+            return 0;
+
+        if (block.hasMetadata("DG_noValue"))
+            return 0;
+
         World world = block.getWorld();
-        
-        if (type == Material.STONE ) {
-            //if in diamond zone
-            if (block.getY() <= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMaxY
-                    && block.getY() >= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMinY) {
-                return DiamondGuarantee.instance.worldSettingsManager.Get(world).stoneValueInsideZone;
+
+        if (type == Material.STONE) {
+            // if in diamond zone
+            if (block.getY() <= DiamondGuarantee.instance.worldSettingsManager.get(world).diamondZoneMaxY
+                    && block.getY() >= DiamondGuarantee.instance.worldSettingsManager.get(world).diamondZoneMinY) {
+                return DiamondGuarantee.instance.worldSettingsManager.get(world).stoneValueInsideZone;
             } else {
-                return DiamondGuarantee.instance.worldSettingsManager.Get(world).stoneValueOutsideZone;
+                return DiamondGuarantee.instance.worldSettingsManager.get(world).stoneValueOutsideZone;
             }
         } else if (type == Material.DEEPSLATE) {
-            //if in diamond zone
-            if (block.getY() <= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMaxY
-                    && block.getY() >= DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondZoneMinY) {
-                return DiamondGuarantee.instance.worldSettingsManager.Get(world).deepslateValueInsideZone;
+            // if in diamond zone
+            if (block.getY() <= DiamondGuarantee.instance.worldSettingsManager.get(world).diamondZoneMaxY
+                    && block.getY() >= DiamondGuarantee.instance.worldSettingsManager.get(world).diamondZoneMinY) {
+                return DiamondGuarantee.instance.worldSettingsManager.get(world).deepslateValueInsideZone;
             } else {
-                return DiamondGuarantee.instance.worldSettingsManager.Get(world).deepslateValueOutsideZone;
+                return DiamondGuarantee.instance.worldSettingsManager.get(world).deepslateValueOutsideZone;
             }
-        } else if (type == Material.DIAMOND_ORE) {
-            return -DiamondGuarantee.instance.worldSettingsManager.Get(world).diamondValue;
+        } else {
+            return -DiamondGuarantee.instance.worldSettingsManager.get(world).diamondValue;
         }
-        return 0;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent event) {
         Block block = event.getBlock();
         World world = block.getWorld();
-        
-        if (world.getEnvironment() != Environment.NORMAL) return;
-        
-        if (!DiamondGuarantee.instance.worldSettingsManager.Get(world).generateDiamonds) return;
-        
-        //placed blocks don't provide or cost any points when broken
+
+        if (world.getEnvironment() != Environment.NORMAL)
+            return;
+
+        if (!DiamondGuarantee.instance.worldSettingsManager.get(world).generateDiamonds)
+            return;
+
+        // placed blocks don't provide or cost any points when broken
         block.setMetadata("DG_noValue", new FixedMetadataValue(DiamondGuarantee.instance, true));
     }
-    
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onBlockExplode(BlockExplodeEvent event) {
         World world = event.getBlock().getWorld();
-        if (!DiamondGuarantee.instance.worldSettingsManager.Get(world).generateDiamonds) return;
-        
+        if (!DiamondGuarantee.instance.worldSettingsManager.get(world).generateDiamonds)
+            return;
+
         List<Block> blocks = event.blockList();
         for (int i = 0; i < blocks.size(); i++) {
             Block block = blocks.get(i);
@@ -158,24 +190,30 @@ public class DGEventHandler implements Listener
             }
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityDeath(EntityDeathEvent event) {
         EntityType type = event.getEntityType();
         if (type == EntityType.GHAST) {
-            int count = DiamondGuarantee.instance.worldSettingsManager.Get(event.getEntity().getWorld()).ghastDustCount;
+            int count = DiamondGuarantee.instance.worldSettingsManager.get(event.getEntity().getWorld()).ghastDustCount;
             if (count > 0) {
                 event.getDrops().add(new ItemStack(Material.GLOWSTONE_DUST, count));
             }
+        } else if (type == EntityType.SHULKER) {
+            int count = DiamondGuarantee.instance.worldSettingsManager
+                    .get(event.getEntity().getWorld()).shulkerShellsCount;
+            if (count > 0) {
+                event.getDrops().add(new ItemStack(Material.SHULKER_SHELL, count));
+            }
         } else if (type == EntityType.ENDER_DRAGON) {
             World world = event.getEntity().getWorld();
-            if (DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsEggs) {
+            if (DiamondGuarantee.instance.worldSettingsManager.get(world).dragonDropsEggs) {
                 event.getDrops().add(new ItemStack(Material.DRAGON_EGG));
             }
-            if (DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsElytras) {
+            if (DiamondGuarantee.instance.worldSettingsManager.get(world).dragonDropsElytras) {
                 event.getDrops().add(new ItemStack(Material.ELYTRA));
             }
-            if (DiamondGuarantee.instance.worldSettingsManager.Get(world).dragonDropsHeads) {
+            if (DiamondGuarantee.instance.worldSettingsManager.get(world).dragonDropsHeads) {
                 event.getDrops().add(new ItemStack(Material.DRAGON_HEAD));
             }
         }

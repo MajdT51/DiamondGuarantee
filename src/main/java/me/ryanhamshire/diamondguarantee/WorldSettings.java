@@ -11,6 +11,7 @@ class WorldSettings {
     int diamondZoneMaxY;
     int diamondZoneMinY;
     int ghastDustCount;
+    int shulkerShellsCount;
     boolean dragonDropsEggs;
     boolean dragonDropsElytras;
     boolean dragonDropsHeads;
@@ -28,6 +29,7 @@ class WorldSettings {
         this.diamondZoneMaxY = other.diamondZoneMaxY;
         this.diamondZoneMinY = other.diamondZoneMinY;
         this.ghastDustCount = other.ghastDustCount;
+        this.shulkerShellsCount = other.shulkerShellsCount;
         this.dragonDropsEggs = other.dragonDropsEggs;
         this.dragonDropsElytras = other.dragonDropsElytras;
         this.dragonDropsHeads = other.dragonDropsHeads;
