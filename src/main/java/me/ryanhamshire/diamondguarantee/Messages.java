@@ -2,10 +2,9 @@
 
 package me.ryanhamshire.diamondguarantee;
 
-public enum Messages
-{
-    ReloadComplete,
-    PlayerNotFound,
-    DiamondScore,
-    SetDiamondScore
+public enum Messages {
+    RELOAD_COMPLETE,
+    PLAYER_NOT_FOUND,
+    DIAMOND_SCORE,
+    SET_DIAMOND_SCORE,
 }
