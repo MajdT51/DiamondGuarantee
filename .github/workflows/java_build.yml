@@ -32,3 +32,15 @@ jobs:
         with:
           name: diamondGuarantee-${{ env.PLUGIN_VERSION }}
           path: target/diamondGuarantee-${{ env.PLUGIN_VERSION }}.jar
+        
+      - name: Inform Discord
+        uses: Ilshidur/action-discord@v2.1.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          username: GitHub Actions
+          avatar-url: https://avatars.githubusercontent.com/u/44036562
+          title: Plugin Build
+          description: Plugin build has been completed.
+          color: 3066993
+          status: ${{ job.status }}
+          fields: version=${{ env.PLUGIN_VERSION }}
