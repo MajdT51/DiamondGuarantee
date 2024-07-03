@@ -34,9 +34,9 @@ jobs:
           path: target/diamondGuarantee-${{ env.PLUGIN_VERSION }}.jar
         
       - name: Inform Discord
-        uses: Ilshidur/action-discord@v2.1.0
+        uses: sarisia/actions-status-discord@v1
         with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
           username: GitHub Actions
           avatar-url: https://avatars.githubusercontent.com/u/44036562
           title: Plugin Build
