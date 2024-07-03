@@ -3,10 +3,10 @@ name: Build Plugin
 on:
   push:
     branches:
-      - develop
+      - main
   pull_request:
     branches:
-      - develop
+      - main
 
 jobs:
   build:
@@ -28,12 +28,14 @@ jobs:
         run: mvn install
 
       - name: Upload plugin jar with version
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v2
         with:
           name: diamondGuarantee-${{ env.PLUGIN_VERSION }}
           path: target/diamondGuarantee-${{ env.PLUGIN_VERSION }}.jar
         
       - name: Inform Discord
+        if: github.event_name == 'push'
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
