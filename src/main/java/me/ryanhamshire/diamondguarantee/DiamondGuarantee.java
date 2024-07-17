@@ -58,6 +58,9 @@ public class DiamondGuarantee extends JavaPlugin {
         for (Player player : players) {
             PlayerData.preloadPlayerData(player);
         }
+
+        // Enable metrics
+        Metrics metrics = new Metrics(this, 22678);
     }
 
     @Override
